@@ -13,6 +13,7 @@
 |color_checked|color|选中时填充颜色|
 |color_unchecked|color|未选中时填充颜色|
 |color_unchecked_stroke|color|未选中时边框颜色|
+|enabled|boolean|是否有效|
 
 
 ## Sample Usage 使用
