@@ -42,6 +42,7 @@
         android:layout_height="24dp"
         android:layout_margin="5dp"
         app:stroke_width="1dp"
+        app:enabled="true"
         app:color_checked="#FF222222" />
 
 
