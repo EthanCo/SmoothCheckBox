@@ -6,6 +6,9 @@
         <attr name="color_checked" format="color"/>
         <attr name="color_unchecked" format="color"/>
         <attr name="color_unchecked_stroke" format="color"/>
+        <attr name="color_disable" format="color"/>
+        <attr name="color_disable_stroke" format="color"/>
+        <attr name="clickable" format="boolean"/>
         <attr name="enabled" format="boolean"/>
     </declare-styleable>
 </resources>

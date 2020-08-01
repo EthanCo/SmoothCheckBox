@@ -5,45 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="cn.refactor.smoothcheckbox.MainActivity">
 
 
     <cn.refactor.library.SmoothCheckBox
-        android:id="@+id/scb"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:paddingTop="10dp"
-        android:visibility="gone"
-        app:color_checked="@color/colorAccent"/>
+        android:id="@+id/scb1"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="10dp"
+        app:color_checked="@color/colorAccent"
+        app:stroke_width="1dp" />
 
     <cn.refactor.library.SmoothCheckBox
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:visibility="gone"
-        app:color_checked="#447eeb" />
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="10dp"
+        android:visibility="visible"
+        app:color_checked="#149A45"
+        app:enabled="false"
+        app:stroke_width="1dp" />
 
-    <cn.refactor.library.SmoothCheckBox
-        android:layout_width="40dp"
+
+    <FrameLayout
+        android:id="@+id/layout_scb2"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:paddingBottom="10dp"
-        android:visibility="gone"
-        app:color_checked="#149A45" />
+        android:background="#E5E5E5">
+
+        <cn.refactor.library.SmoothCheckBox
+            android:id="@+id/scb2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:clickable="false"
+            app:color_checked="#447eeb"
+            app:enabled="true"
+            app:stroke_width="1dp" />
+    </FrameLayout>
 
     <cn.refactor.library.SmoothCheckBox
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_margin="5dp"
-        app:stroke_width="1dp"
+        android:visibility="gone"
+        app:clickable="false"
+        app:color_checked="#FF222222"
         app:enabled="true"
-        app:color_checked="#FF222222" />
+        app:stroke_width="1dp" />
 
-
+    <Button
+        android:id="@+id/btn_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="toggle" />
 </LinearLayout>

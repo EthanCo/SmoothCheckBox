@@ -48,6 +48,8 @@ public class SmoothCheckBox extends View implements Checkable {
     private static final int COLOR_UNCHECKED = Color.WHITE;
     private static final int COLOR_CHECKED = Color.parseColor("#FB4846");
     private static final int COLOR_FLOOR_UNCHECKED = Color.parseColor("#DFDFDF");
+    private static final int COLOR_DISABLE = Color.parseColor("#E5E5E5");
+    private static final int COLOR_DISABLE_STROKE = Color.parseColor("#CCCCCC");
 
     private static final int DEF_DRAW_SIZE = 25;
     private static final int DEF_ANIM_DURATION = 300;
@@ -61,7 +63,7 @@ public class SmoothCheckBox extends View implements Checkable {
     private float mLeftLineDistance, mRightLineDistance, mDrewDistance;
     private float mScaleVal = 1.0f, mFloorScale = 1.0f;
     private int mWidth, mAnimDuration, mStrokeWidth;
-    private int mCheckedColor, mUnCheckedColor, mFloorColor, mFloorUnCheckedColor;
+    private int mCheckedColor, mUnCheckedColor, mFloorColor, mFloorUnCheckedColor, mDisableColor, mDisableStrokeColor;
 
     private boolean mChecked;
     private boolean mTickDrawing;
@@ -94,7 +96,10 @@ public class SmoothCheckBox extends View implements Checkable {
         mFloorColor = ta.getColor(R.styleable.SmoothCheckBox_color_unchecked_stroke, COLOR_FLOOR_UNCHECKED);
         mCheckedColor = ta.getColor(R.styleable.SmoothCheckBox_color_checked, COLOR_CHECKED);
         mUnCheckedColor = ta.getColor(R.styleable.SmoothCheckBox_color_unchecked, COLOR_UNCHECKED);
+        mDisableColor = ta.getColor(R.styleable.SmoothCheckBox_color_disable, COLOR_DISABLE);
+        mDisableStrokeColor = ta.getColor(R.styleable.SmoothCheckBox_color_disable, COLOR_DISABLE_STROKE);
         mStrokeWidth = ta.getDimensionPixelSize(R.styleable.SmoothCheckBox_stroke_width, CompatUtils.dp2px(getContext(), 0));
+        boolean clickable = ta.getBoolean(R.styleable.SmoothCheckBox_clickable, true);
         setEnabled(ta.getBoolean(R.styleable.SmoothCheckBox_enabled, true));
         ta.recycle();
 
@@ -119,22 +124,24 @@ public class SmoothCheckBox extends View implements Checkable {
         mTickPoints[1] = new Point();
         mTickPoints[2] = new Point();
 
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isEnabled()) {
-                    return;
+        if (clickable) {
+            setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!isEnabled()) {
+                        return;
+                    }
+                    toggle();
+                    mTickDrawing = false;
+                    mDrewDistance = 0;
+                    if (isChecked()) {
+                        startCheckedAnimation();
+                    } else {
+                        startUnCheckedAnimation();
+                    }
                 }
-                toggle();
-                mTickDrawing = false;
-                mDrewDistance = 0;
-                if (isChecked()) {
-                    startCheckedAnimation();
-                } else {
-                    startUnCheckedAnimation();
-                }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -265,13 +272,21 @@ public class SmoothCheckBox extends View implements Checkable {
     }
 
     private void drawCenter(Canvas canvas) {
-        mPaint.setColor(mUnCheckedColor);
+        if (isEnabled()) {
+            mPaint.setColor(mUnCheckedColor);
+        }else{
+            mPaint.setColor(mDisableColor);
+        }
         float radius = (mCenterPoint.x - mStrokeWidth) * mScaleVal;
         canvas.drawCircle(mCenterPoint.x, mCenterPoint.y, radius, mPaint);
     }
 
     private void drawBorder(Canvas canvas) {
-        mFloorPaint.setColor(mFloorColor);
+        if (isEnabled()) {
+            mFloorPaint.setColor(mFloorColor);
+        }else{
+            mFloorPaint.setColor(mDisableStrokeColor);
+        }
         int radius = mCenterPoint.x;
         canvas.drawCircle(mCenterPoint.x, mCenterPoint.y, radius * mFloorScale, mFloorPaint);
     }
