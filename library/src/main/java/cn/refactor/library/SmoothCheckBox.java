@@ -62,7 +62,7 @@ public class SmoothCheckBox extends View implements Checkable {
 
     private float mLeftLineDistance, mRightLineDistance, mDrewDistance;
     private float mScaleVal = 1.0f, mFloorScale = 1.0f;
-    private int mWidth, mAnimDuration, mStrokeWidth;
+    private int mWidth, mAnimDuration, mStrokeWidth,mTickWidth;
     private int mCheckedColor, mUnCheckedColor, mFloorColor, mFloorUnCheckedColor, mDisableColor, mDisableStrokeColor;
 
     private boolean mChecked;
@@ -99,6 +99,7 @@ public class SmoothCheckBox extends View implements Checkable {
         mDisableColor = ta.getColor(R.styleable.SmoothCheckBox_color_disable, COLOR_DISABLE);
         mDisableStrokeColor = ta.getColor(R.styleable.SmoothCheckBox_color_disable, COLOR_DISABLE_STROKE);
         mStrokeWidth = ta.getDimensionPixelSize(R.styleable.SmoothCheckBox_stroke_width, CompatUtils.dp2px(getContext(), 0));
+        mTickWidth = ta.getDimensionPixelSize(R.styleable.SmoothCheckBox_tick_stroke_width, CompatUtils.dp2px(getContext(), 0));
         boolean clickable = ta.getBoolean(R.styleable.SmoothCheckBox_clickable, true);
         setEnabled(ta.getBoolean(R.styleable.SmoothCheckBox_enabled, true));
         ta.recycle();
@@ -247,6 +248,11 @@ public class SmoothCheckBox extends View implements Checkable {
         mStrokeWidth = (mStrokeWidth == 0 ? getMeasuredWidth() / 10 : mStrokeWidth);
         mStrokeWidth = mStrokeWidth > getMeasuredWidth() / 5 ? getMeasuredWidth() / 5 : mStrokeWidth;
         mStrokeWidth = (mStrokeWidth < 3) ? 3 : mStrokeWidth;
+
+        mTickWidth = (mTickWidth == 0 ? getMeasuredWidth() / 10 : mTickWidth);
+        mTickWidth = mTickWidth > getMeasuredWidth() / 5 ? getMeasuredWidth() / 5 : mTickWidth;
+        mTickWidth = (mTickWidth < 3) ? 3 : mTickWidth;
+
         mCenterPoint.x = mWidth / 2;
         mCenterPoint.y = getMeasuredHeight() / 2;
 
@@ -261,7 +267,7 @@ public class SmoothCheckBox extends View implements Checkable {
                 Math.pow(mTickPoints[1].y - mTickPoints[0].y, 2));
         mRightLineDistance = (float) Math.sqrt(Math.pow(mTickPoints[2].x - mTickPoints[1].x, 2) +
                 Math.pow(mTickPoints[2].y - mTickPoints[1].y, 2));
-        mTickPaint.setStrokeWidth(mStrokeWidth);
+        mTickPaint.setStrokeWidth(mTickWidth);
     }
 
     @Override

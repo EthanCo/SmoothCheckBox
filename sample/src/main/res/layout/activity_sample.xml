@@ -19,7 +19,8 @@
         android:layout_height="24dp"
         android:layout_margin="10dp"
         app:color_checked="@color/colorAccent"
-        app:stroke_width="1dp" />
+        app:stroke_width="1dp"
+        app:tick_stroke_width="3dp"/>
 
     <cn.refactor.library.SmoothCheckBox
         android:layout_width="24dp"
